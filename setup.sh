@@ -1,3 +1,5 @@
+#!/bin/bash
+INSTALLATION_DIR=$(dirname "$(realpath "$0")")
 for pkg in docker.io docker-doc docker-compose docker-compose-v2 podman-docker containerd runc; do sudo apt-get remove -qy $pkg; done
 
 sudo apt-get update
@@ -36,3 +38,14 @@ tee check_log.sh > /dev/null <<EOF
   tail -f pingpong.log
 EOF
 chmod ug+x check_log.sh
+sudo tee /etc/logrotate.d/ore > /dev/null <<EOF
+  $INSTALLATION_DIR/*.log {
+    rotate 5
+    maxsize 50M
+    missingok
+    notifempty
+    copytruncate
+    compress
+    compresscmd /bin/gzip
+  }
+EOF
