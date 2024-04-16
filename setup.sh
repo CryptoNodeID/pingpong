@@ -19,8 +19,8 @@ sudo systemctl start docker
 wget -O PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/latest/PINGPONG
 chmod ug+x ./PINGPONG
 
-echo "Enter device_id:"
-read device_id
+device_id=$(read -p "Enter device_id: " id; echo "$id")
+
 tee start_pingpong.sh > /dev/null <<EOF
 sudo sysctl -w net.core.rmem_max=2500000
 sudo sysctl -w net.core.wmem_max=2500000
