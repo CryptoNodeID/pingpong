@@ -16,14 +16,14 @@ sudo apt-get update
 
 sudo apt-get install -qy docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl start docker
-wget -o PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/latest/PINGPONG
+wget -O PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/latest/PINGPONG
 chmod ug+x ./PINGPONG
 
 echo "Enter device_id:"
 read device_id
 tee start_pingpong.sh > /dev/null <<EOF
-sysctl -w net.core.rmem_max=2500000
-sysctl -w net.core.wmem_max=2500000
+sudo sysctl -w net.core.rmem_max=2500000
+sudo sysctl -w net.core.wmem_max=2500000
 sudo nohup ./PINGPONG --key ${device_id} > pingpong.log 2>&1 & echo \$! >> pingpong.pid
 EOF
 chmod ug+x start_pingpong.sh
