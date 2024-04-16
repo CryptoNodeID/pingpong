@@ -16,9 +16,8 @@ sudo apt-get update
 
 sudo apt-get install -qy docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl start docker
-wget -o PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/v0.1.5/PINGPONG
+wget -o PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/latest/PINGPONG
 chmod ug+x ./PINGPONG
-
 
 echo "Enter device_id:"
 read device_id
@@ -30,7 +29,8 @@ EOF
 chmod ug+x start_pingpong.sh
 tee stop_pingpong.sh > /dev/null <<EOF
   sudo kill \$(cat pingpong.pid)
-  pkill PINGPONG
+  sudo pkill PINGPONG
+  sudo docker stop pingpong-rtm pp-golem pp-masq pp-aioz pp-titan
   rm pingpong.pid
 EOF
 chmod ug+x stop_pingpong.sh
