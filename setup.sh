@@ -16,7 +16,7 @@ sudo apt-get update
 
 sudo apt-get install -qy docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 sudo systemctl start docker
-wget https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/v0.1.5/PINGPONG
+wget -o PINGPONG https://pingpong-build.s3.ap-southeast-1.amazonaws.com/linux/v0.1.5/PINGPONG
 chmod ug+x ./PINGPONG
 
 
